@@ -78,6 +78,8 @@ def get_leg_ids(payload):
         raise TypeError('Payload expected type is Dict')
 
     fare_id = payload['arguments']['fare_id']
+    if not fare_id or not isinstance(fare_id, str):
+        raise ValueError('Failed to retrieve fare_id from payload')
 
     def binary_search(arr):
         """

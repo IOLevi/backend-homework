@@ -1,38 +1,63 @@
-# lola-backend
+# Lola Backend Homework
+API/Backend challenge project to evaluate coding style. 
 
-MAKE A VIRTUAL ENV SO THAT IT WILL NOT HAVE A PROBLEM ON THEIR SERVER
+## Getting Started
 
-https://pipenv.readthedocs.io/en/latest/install/#installing-pipenv
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-If pip/pip3 is already installed:
-`sudo pip3 install --user pipenv`
+### Prerequisites
 
-Crude installation (if pip is not already installed). Run the following command.
-`curl https://raw.githubusercontent.com/kennethreitz/pipenv/master/get-pipenv.py | python`
+Installation assumes pip3 is installed on the target system. If pip3 is not installed, run the following command:
 
-MAKE INSTRUCTIONS ON HOW TO WORK IT
+Linux/Debian:
+```
+sudo apt install python3-pip
+```
 
-pipenv installation instructions:
+MacOS:
+```
+brew install python3
+```
 
-cd lola
-sudo pipenv install
+### Installing
 
---pipenv install
+Installation is bootstrapped with with the make utility, which will install pipenv (if not present) on --user, and automatically install the required dependencies into the pipenv environment. Simply run the following command:
+```
+make install
+```
 
---pipenv shell
-    opens a shell with access to all installed dependencies. Can run program as "python <filename>"
---pipenv run pip
-    runs with dependencies. E.g., "python <filename>"
+## Running the tests
+
+Tests are automated with the make utility. Run tests with the following command:
+```
+make test
+```
+
+## Deployment
+Deployment (POSTing each problem solution) to the server is automated with the make utility. Sample data can be posted with the following command:
+```
+make sample
+```
+
+Problems 1 and 2 (not sample) can be run with the following command:
+```
+make deploy
+```
+
+## Built With
+
+* [Make](https://www.gnu.org/software/make/) - Make utility
+* [pipenv](https://pipenv.readthedocs.io/en/latest/) - Python Dev Workflow for Humans
+* [requests](http://docs.python-requests.org/en/master/user/quickstart/) - Python Requests library
 
 
-Find out what’s changed upstream: $ pipenv update --outdated.
-Upgrade packages, two options:
-Want to upgrade everything? Just do $ pipenv update.
-Want to upgrade packages one-at-a-time? $ pipenv update <pkg> for each outdated package.
+## Versioning
 
-only need to remove the colon so that the iso offset is only 5 chars instead of 6
+I use [GitHub](http://github.com/iolevi) for versioning. This project is hosted in a private repo.
 
-CAN USE MAKEFILE TO MAKE A GENERIC SCRIPT TO INSTALL DEPENDENCIES AND THEN RUN TESTS
+## Known Issues:
+Project assumes fares and legs array in JSON payload are in ascending order, and binary search is used to optimize speed. Binary search will fail if data is unsorted or indexes are missing. 
 
-KNOWN ISSUES:
-Assumes linearly sorted fares and legs array by fare_id. Binary search will fail if list is not complete and sorted.
+## Author
+
+* **Evan Sznol**
