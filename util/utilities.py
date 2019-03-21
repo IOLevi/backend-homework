@@ -2,6 +2,8 @@
 Utilities Module
 """
 import datetime
+import requests
+import json
 def iso_to_datetime(input_str):
     """
     Removes final colon from string to conform to python 3.6 %z format specifier.
@@ -29,14 +31,36 @@ def populate_times(payload, legs):
     
     return dept_list, arrv_list
 
-def get_leg_ids(payload, fare_id):
+def get_leg_ids(payload):
     """
-    Searches through fares list, returns the list of legs associated with the fare_id.
+    Binary searches through fares list, returns the list of legs associated with the fare_id.
     """
-    for fare in payload['input']['fares']: #could use a search function to make this faster?
-        if fare['id'] == fare_id:
-            return fare['legs'] # list of legs
-    raise ValueError('Could find fare associated with fare ID')
+    fare_id = payload['arguments']['fare_id']
+
+    # for fare in payload['input']['fares']: #could use a search function to make this faster?
+    #     if fare['id'] == fare_id:
+    #         return fare['legs'] # list of legs
+    # raise ValueError('Could find fare associated with fare ID')
+
+    def binary_search(arr):
+        first = 0
+        last = len(arr) - 1
+        while first <= last:
+            mid = (first + last) // 2
+            mid_value = arr[mid]['id']
+            print(mid_value)
+
+            if mid_value == fare_id:
+                return arr[mid]['legs']
+            elif mid_value < fare_id:
+                first = mid + 1
+            else:
+                last = mid - 1
+        
+        raise ValueError("Couldn't find fare_id in list")
+    
+    fares = payload['input']['fares']
+    return binary_search(fares)
 
 def calc_total_time(dept_list, arrv_list):
     """
@@ -48,4 +72,26 @@ def calc_total_time(dept_list, arrv_list):
         total_time += int((arv - dept).total_seconds())
     
     return total_time
+
+def get_payload(test_url, headers):
+    """
+    Gets JSON payload from API endpoint; throws error if connection fails.
+    Returns the JSON payload.
+    """
+    request = requests.get(test_url, headers=headers)
+
+    request.raise_for_status() #throws an exception if connections fails
+
+    return request.json()
+
+def post_response(payload, test_url, headers, total_time):
+    """
+    POST the total time in seconds to the API endpoint.
+    Return the response from the POST request. 
+    """
+    result_token = payload['token']
+    response = {"header": {"token": result_token}, "data": {"total_seconds": total_time}}
+
+    return requests.post(test_url, headers=headers, data=json.dumps(response))
+    
 

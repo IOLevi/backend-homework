@@ -22,23 +22,20 @@ def main():
         test_url += '?sample=true'
 
     # GET payload and calculate total flight time
-    request =  requests.get(test_url, headers=headers).json()
+    
+    request = util.get_payload(test_url, headers)
 
-    fare_id = request['arguments']['fare_id']
-
-    legs = util.get_leg_ids(request, fare_id)
+    legs = util.get_leg_ids(request)
 
     dept_times, arrv_times = util.populate_times(request, legs)
 
     total_time = util.calc_total_time(dept_times, arrv_times)
 
     # POST response
-    result_token = request['token']
-    response = {"header": {"token": result_token}, "data": {"total_seconds": total_time}}
 
-    r = requests.post(test_url, headers=headers, data=json.dumps(response))
+    result = util.post_response(request, test_url, headers, total_time)
     
-    return(r.json())
+    return(result.json())
 
 if __name__ == '__main__':
     main()
