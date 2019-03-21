@@ -7,19 +7,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-1. Installation assumes pip3 is installed on the target system. If pip3 is not installed, run the following command:
-
-Ubuntu/Debian:
-```
-sudo apt install python3-pip
-```
-
-MacOS:
-```
-brew install python3
-```
-
-2. Installation uses pyenv to manage python versions, allowing pipenv to automatically install the specified Python version (3.6). To install, run the following commands:
+1. Installation uses pyenv to manage python versions on the target system. To install pyenv, run the following commands:
 
 MacOS:
 ```
@@ -38,11 +26,29 @@ echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 source ~/.bashrc
 cd -
 ```
-
 For additional installation options, see the [pyenv](https://github.com/pyenv/pyenv#installation) installation guide. 
+
+
+2. Install Python 3.6 into pyenv by running the following command:
+```
+pyenv install python 3.6.5
+```
+
+3. Installation assumes pip3 is installed on the target system. If pip3 is not installed, run the following command:
+
+Ubuntu/Debian:
+```
+sudo apt install python3-pip
+```
+
+MacOS:
+```
+brew install python3
+```
+
 ### Installing
 
-Installation is bootstrapped with with the make utility, which will install pipenv (if not present) on --user, and automatically install the required dependencies into the pipenv environment. Simply run the following command:
+Installation is bootstrapped with with the make utility, which will install pipenv (if not present) on --user, and automatically installsthe required dependencies into the pipenv environment. Simply run the following command:
 ```
 make install
 ```
