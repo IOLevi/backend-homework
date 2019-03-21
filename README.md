@@ -30,4 +30,6 @@ Upgrade packages, two options:
 Want to upgrade everything? Just do $ pipenv update.
 Want to upgrade packages one-at-a-time? $ pipenv update <pkg> for each outdated package.
 
+only need to remove the colon so that the iso offset is only 5 chars instead of 6
 
+CAN USE MAKEFILE TO MAKE A GENERIC SCRIPT TO INSTALL DEPENDENCIES AND THEN RUN TESTS
