@@ -33,3 +33,6 @@ Want to upgrade packages one-at-a-time? $ pipenv update <pkg> for each outdated 
 only need to remove the colon so that the iso offset is only 5 chars instead of 6
 
 CAN USE MAKEFILE TO MAKE A GENERIC SCRIPT TO INSTALL DEPENDENCIES AND THEN RUN TESTS
+
+KNOWN ISSUES:
+Assumes linearly sorted fares and legs array by fare_id. Binary search will fail if list is not complete and sorted.
