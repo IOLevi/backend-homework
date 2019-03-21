@@ -77,8 +77,8 @@ def get_leg_ids(payload):
     if not isinstance(payload, dict):
         raise TypeError('Payload expected type is Dict')
 
-    fare_id = payload['arguments']['fare_id']
-    if not fare_id or not isinstance(fare_id, str):
+    fare_id = int(payload['arguments']['fare_id'][5:])
+    if not isinstance(fare_id, int):
         raise ValueError('Failed to retrieve fare_id from payload')
 
     def binary_search(arr):
@@ -90,7 +90,7 @@ def get_leg_ids(payload):
         last = len(arr) - 1
         while first <= last:
             mid = (first + last) // 2
-            mid_value = arr[mid]['id']
+            mid_value = int(arr[mid]['id'][5:])
 
             if mid_value == fare_id:
                 return arr[mid]['legs']
