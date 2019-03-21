@@ -36,6 +36,8 @@ def main():
 
     result = util.post_response(request, test_url, headers, total_time)
     
+    print(result.json())
+
     return(result.json())
 
 if __name__ == '__main__':

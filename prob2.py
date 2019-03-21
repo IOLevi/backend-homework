@@ -31,6 +31,8 @@ def main():
     # POST response
 
     result = util.post_response(request, test_url, headers, viable_legs)
+
+    print(result.json())
     
     return(result.json())
 
