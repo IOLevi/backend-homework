@@ -2,8 +2,9 @@
 Utilities Module
 """
 import datetime
-import requests
 import json
+import requests
+
 def iso_to_datetime(input_str):
     """
     Removes final colon from string to conform to python 3.6 %z format specifier.
@@ -24,16 +25,45 @@ def populate_times(payload, legs):
     """
     dept_list = []
     arrv_list = []
-    for leg in payload['input']['legs']: #could use a search function to make this faster
-        if leg['id'] in legs:
-            dept_list.append(iso_to_datetime(leg['departure_utc']['iso']))
-            arrv_list.append(iso_to_datetime(leg['arrival_utc']['iso']))
+    # for leg in payload['input']['legs']: #could use a search function to make this faster
+    #     if leg['id'] in legs:
+    #         dept_list.append(iso_to_datetime(leg['departure_utc']['iso']))
+    #         arrv_list.append(iso_to_datetime(leg['arrival_utc']['iso']))
+    
+    # return dept_list, arrv_list
+
+    def binary_search_populate(arr, target):
+        """
+        Binary search through legs array. When matched against target leg, appends associated
+        departure and arrival time to the dept and arrival lists as datetime objects.
+        """
+        first = 0
+        last = len(arr) - 1
+        while first <= last:
+            mid = (first + last) // 2
+            mid_value = arr[mid]['id']
+
+            if mid_value == target:
+                dept_list.append(iso_to_datetime(arr[mid]['departure_utc']['iso']))
+                arrv_list.append(iso_to_datetime(arr[mid]['arrival_utc']['iso']))
+                return
+            elif mid_value < target:
+                first = mid + 1
+            else:
+                last = mid - 1
+        
+        raise ValueError("Couldn't find target leg in list")
+
+    all_legs = payload['input']['legs']
+    for leg in legs:
+        binary_search_populate(all_legs, leg)
     
     return dept_list, arrv_list
 
 def get_leg_ids(payload):
     """
-    Binary searches through fares list, returns the list of legs associated with the fare_id.
+    Binary searches through fares list.
+    Returns the list of legs associated with the fare_id.
     """
     fare_id = payload['arguments']['fare_id']
 
@@ -43,12 +73,15 @@ def get_leg_ids(payload):
     # raise ValueError('Could find fare associated with fare ID')
 
     def binary_search(arr):
+        """
+        Binary search of fares array.
+        Returns list of legs if found; throws exception if fare_id not in list.
+        """
         first = 0
         last = len(arr) - 1
         while first <= last:
             mid = (first + last) // 2
             mid_value = arr[mid]['id']
-            print(mid_value)
 
             if mid_value == fare_id:
                 return arr[mid]['legs']

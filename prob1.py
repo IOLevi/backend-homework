@@ -1,10 +1,10 @@
 """
 Probl Module
 """
-import requests
-import json
-import sys
 import datetime
+import json
+import requests
+import sys
 from util import utilities as util
 
 def main():
@@ -18,11 +18,12 @@ def main():
     headers = {'X-Lola-Homework-Access-Token': f'{MY_TOKEN}'}
 
     # Activate sample mode by passing 'sample' at command line
+    
     if len(sys.argv) > 1 and sys.argv[1] == 'sample':
         test_url += '?sample=true'
 
     # GET payload and calculate total flight time
-    
+
     request = util.get_payload(test_url, headers)
 
     legs = util.get_leg_ids(request)
