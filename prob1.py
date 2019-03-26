@@ -14,9 +14,9 @@ def main():
     POSTs result to same endpoint.
     """
 
-    MY_TOKEN = 'b2eeef5b2984468ca94b074412611815'
-    test_url = 'https://backend-candidate-homework.lola.co/problem/part_1'
-    headers = {'X-Lola-Homework-Access-Token': f'{MY_TOKEN}'}
+    MY_TOKEN = 'REDACT'
+    test_url = 'REDACT'
+    headers = {'X-Homework-Access-Token': f'{MY_TOKEN}'}
 
     # Activate sample mode by passing 'sample' at command line
 
