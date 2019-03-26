@@ -1,4 +1,4 @@
-# Lola Backend Homework
+# Backend Homework
 API/Backend challenge project to evaluate coding style. 
 
 ## Getting Started
