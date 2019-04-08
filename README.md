@@ -31,7 +31,7 @@ For additional installation options, see the [pyenv](https://github.com/pyenv/py
 
 2. Install Python 3.6 into pyenv by running the following command:
 ```
-pyenv install python 3.6.5
+pyenv install 3.6.5
 ```
 
 3. Installation assumes pip3 is installed on the target system. If pip3 is not installed, run the following command:
